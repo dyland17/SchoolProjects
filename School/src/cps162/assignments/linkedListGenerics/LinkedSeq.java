@@ -138,8 +138,22 @@ public class LinkedSeq<E> implements Cloneable
    * @exception OutOfMemoryError
    *   Indicates insufficient memory for a new node.
    **/
-   public void addBefore(E element) {
-      // student implements
+   public void addBefore(E element) throws OutOfMemoryError{
+	   Node newNode;
+	   //Case 1 empty list.
+	   		//Has no items and the list is not current.
+	   if(head == null && !isCurrent()){
+		   newNode = new Node(element, null);
+		   head = newNode;
+		   precursor = newNode;
+		   cursor = newNode;
+		   tail = newNode;
+	   }//One element in list
+	   else if(head == tail){
+		   newNode = new Node(element, tail);
+		   head = newNode;
+		   
+	   }
    }
    
    
