@@ -1,4 +1,4 @@
-
+package cps162.assignments.sequence;
 
 //File: DoubleArraySeq.java from the package edu.colorado.collections
 
