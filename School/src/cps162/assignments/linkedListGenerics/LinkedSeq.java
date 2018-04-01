@@ -370,7 +370,7 @@ public class LinkedSeq<E> implements Cloneable
    *   element).
    **/ 
    public void start( ) {
-      if(size() > 0){
+      if(manyNodes > 0){
     	  cursor = head;
       }
    }
