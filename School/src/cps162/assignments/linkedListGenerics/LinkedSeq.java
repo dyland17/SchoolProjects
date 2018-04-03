@@ -121,7 +121,34 @@ public class LinkedSeq<E> implements Cloneable
    *   Indicates insufficient memory for a new node.
    **/
    public void addAfter(E element) {
-      // student implements
+      Node newNode;
+      switch(manyNodes){
+      		case 0:
+      			startList(element);
+      			break;
+      		case 1:
+      			newNode = new Node(element,null);
+      			precursor = head;
+      			head.setLink(newNode);
+      			cursor = newNode;
+      			tail = newNode;
+      			break;
+      		default:
+      			if(cursor.getLink() != null){
+      				newNode = new Node(element,cursor.getLink());
+      				cursor.setLink(newNode);
+      				precursor = cursor;
+      				cursor = newNode;
+      			}
+      			else{
+      				newNode = new Node(element,null);
+      				precursor = cursor;
+      				cursor = newNode;
+      				tail = newNode;
+      				precursor.setLink(newNode);
+      			}
+      }
+      manyNodes++;
    }
 
 
@@ -146,10 +173,7 @@ public class LinkedSeq<E> implements Cloneable
 	   switch(manyNodes){
 	   		//Has no items in the list.
 	   	   case 0:
-	   		   	newNode = new Node(element, null);
-	   	   		head = newNode;
-	   	   		cursor = newNode;
-	   	   		tail = newNode;
+	   	   		startList(element);
 	   	   		break;
 	   	   	//One Node in the list
 	   	   case 1:
@@ -209,7 +233,6 @@ public class LinkedSeq<E> implements Cloneable
    *   Indicates that there is no current element, so 
    *   advance may not be called.
    **/
-   //vvvvvvvv Possibly not right yet double check vvvvvvvvvvvv
    public void advance( ) {
       if(isCurrent() == false){
     	  throw new IllegalStateException("Cursor is not current");
@@ -220,7 +243,6 @@ public class LinkedSeq<E> implements Cloneable
     	  precursor = null;
       }
    }
-   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    
    /**
    * Generate a copy of this sequence.
@@ -397,5 +419,13 @@ public class LinkedSeq<E> implements Cloneable
       return answer;
    }
  
+   private void startList(E element){
+	   		Node newNode;
+	   		newNode = new Node(element, null);
+	   		head = newNode;
+	   		cursor = newNode;
+	   		tail = newNode;
+	   		precursor = null;
+   }
 }
            
