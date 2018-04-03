@@ -124,7 +124,8 @@ public class LinkedSeq<E> implements Cloneable
       Node newNode;
       switch(manyNodes){
       		case 0:
-      			startList(element);
+      			newNode = new Node(element,null);
+      			startList(newNode);
       			break;
       		case 1:
       			newNode = new Node(element,null);
@@ -134,18 +135,27 @@ public class LinkedSeq<E> implements Cloneable
       			tail = newNode;
       			break;
       		default:
-      			if(cursor.getLink() != null){
-      				newNode = new Node(element,cursor.getLink());
-      				cursor.setLink(newNode);
-      				precursor = cursor;
+      			if(!isCurrent()){
+      				newNode = new Node(element,null);
+      				tail.setLink(newNode);
+      				precursor = tail;
+      				tail = newNode;
       				cursor = newNode;
       			}
       			else{
-      				newNode = new Node(element,null);
-      				precursor = cursor;
-      				cursor = newNode;
-      				tail = newNode;
-      				precursor.setLink(newNode);
+      				if(cursor.getLink() != null){
+          				newNode = new Node(element,cursor.getLink());
+          				cursor.setLink(newNode);
+          				precursor = cursor;
+          				cursor = newNode;
+          			}
+          			else{
+          				newNode = new Node(element,null);
+          				precursor = cursor;
+          				cursor = newNode;
+          				tail = newNode;
+          				precursor.setLink(newNode);
+          			}
       			}
       }
       manyNodes++;
@@ -173,7 +183,8 @@ public class LinkedSeq<E> implements Cloneable
 	   switch(manyNodes){
 	   		//Has no items in the list.
 	   	   case 0:
-	   	   		startList(element);
+	   		   newNode = new Node(element,null);
+	   	   		startList(newNode);
 	   	   		break;
 	   	   	//One Node in the list
 	   	   case 1:
@@ -419,9 +430,7 @@ public class LinkedSeq<E> implements Cloneable
       return answer;
    }
  
-   private void startList(E element){
-	   		Node newNode;
-	   		newNode = new Node(element, null);
+   private void startList(Node newNode){
 	   		head = newNode;
 	   		cursor = newNode;
 	   		tail = newNode;
