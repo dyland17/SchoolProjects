@@ -372,6 +372,7 @@ public class LinkedSeq<E> implements Cloneable
    public void start( ) {
       if(manyNodes > 0){
     	  cursor = head;
+    	  precursor = null;
       }
    }
 
