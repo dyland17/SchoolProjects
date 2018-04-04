@@ -168,34 +168,32 @@ public class LinkedSeq<E> implements Cloneable
    *   Indicates insufficient memory for a new node.
    **/
    public void addBefore(E element) throws OutOfMemoryError{
-	   Node newNode = new Node(element,null);;
+	   Node newNode = new Node(element,null);
 	   //Cursor is always affected.
 	   		//Head is affected when addBefore is called when the first Node is current
 	   		//Tails is not affected unless it is the first Node being added to the list.
-	   switch(manyNodes){
-	   		//Has no items in the list.
-	   	   case 0:
-	   	   		startList(newNode);
-	   	   		break;
-	   	   	//One Node in the list
-	   	   case 1:
-	   		   newNode.setLink(tail);
-	   		   head = newNode;
-	   		   cursor = newNode;
-	   		   break;
-	   		//Many Nodes in list
-		   default:
-			   if(precursor != null){
-				   newNode.setLink(cursor);
-				   precursor.setLink(newNode);
-				   cursor = newNode;
-			   }
-			   else{
-				   newNode.setLink(head);
-				   cursor = newNode;
-				   head = cursor;
-			   }
-   		}
+	   if(isCurrent()){
+		   if(cursor == head){
+			   cursor = newNode;
+			   cursor.setLink(head);
+			   head = cursor;
+		   }
+		   else{
+			   cursor = newNode;
+			   cursor.setLink(precursor.getLink());
+			   precursor.setLink(cursor);
+		   }
+	   }
+	   else{
+		   if(isEmpty()){
+			   startList(newNode);
+		   }
+		   else{
+			   cursor = newNode;
+			   newNode.setLink(head);
+			   head = newNode;
+		   }
+	   }
 	   manyNodes++;
    }
    
