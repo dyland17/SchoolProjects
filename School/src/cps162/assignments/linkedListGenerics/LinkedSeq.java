@@ -214,35 +214,25 @@ public class LinkedSeq<E> implements Cloneable
    *   Indicates insufficient memory to increase the size of this sequence.
    **/
    public void addAll(LinkedSeq<E> addend) {
-      Node newNode;
+      //If list addend is null or empty there is no point in going further.
       if(addend == null || addend.isEmpty()){
     	  return;
-      }
+      }//Current list is empty but addend has content.
       else if(isEmpty()){
-    	  addend.start();
-    	  newNode = new Node(addend.getCurrent(),null);
-    	  startList(newNode);
-    	  addend.advance();
-    	  while(addend.isCurrent()){
-    		  	newNode = new Node(addend.getCurrent(),null);
-  	  			tail.setLink(newNode);
-  	  			tail = newNode;
-  	  			addend.advance();
-    	  }
-      }
+    	  setEqualTo(addend);
+    	  cursor = null;
+    	  precursor = null;
+      }//Both lists have content in them.
       else{
-    	  	addend.start();
-      		while(addend.isCurrent()){
-    	  		newNode = new Node(addend.getCurrent(),null);
-    	  		tail.setLink(newNode);
-    	  		tail = newNode;
-    	  		addend.advance();
-      		}
+    	  tail.setLink(addend.head);
+    	  tail = addend.tail;
+    	  manyNodes += addend.size();
       }
    }   
    
    
-   /**
+   
+/**
    * Move forward, so that the current element is now the next element in
    * this sequence.
    * @param - none
@@ -449,6 +439,20 @@ public class LinkedSeq<E> implements Cloneable
 	   		tail = newNode;
 	   		precursor = null;
    }
+   
+   public void setEqualTo(LinkedSeq valuesBeingCopiedList) {
+	   if(valuesBeingCopiedList == null){
+		   return;
+	   }
+	   else{
+		   head = valuesBeingCopiedList.head;
+		   precursor = valuesBeingCopiedList.precursor;
+		   cursor = valuesBeingCopiedList.cursor;
+		   tail = valuesBeingCopiedList.tail;
+		   manyNodes = valuesBeingCopiedList.manyNodes;
+	   }
+   }
+
    public boolean isEmpty(){
 	   return (manyNodes ==  0) ? true : false; 
    }
