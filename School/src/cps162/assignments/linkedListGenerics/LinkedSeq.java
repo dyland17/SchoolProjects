@@ -122,41 +122,26 @@ public class LinkedSeq<E> implements Cloneable
    **/
    public void addAfter(E element) {
       Node newNode;
-      switch(manyNodes){
-      		case 0:
-      			newNode = new Node(element,null);
-      			startList(newNode);
-      			break;
-      		case 1:
-      			newNode = new Node(element,null);
-      			precursor = head;
-      			head.setLink(newNode);
-      			cursor = newNode;
-      			tail = newNode;
-      			break;
-      		default:
-      			if(!isCurrent()){
-      				newNode = new Node(element,null);
-      				tail.setLink(newNode);
-      				precursor = tail;
-      				tail = newNode;
+      newNode = new Node(element,null);
+      if(isCurrent()){
+      			if(cursor == tail){
+      				precursor = cursor;
       				cursor = newNode;
+      				newNode.setLink(precursor.getLink());
+      				precursor.setLink(newNode);
+      				tail = newNode;
       			}
       			else{
-      				if(cursor.getLink() != null){
-          				newNode = new Node(element,cursor.getLink());
-          				cursor.setLink(newNode);
-          				precursor = cursor;
-          				cursor = newNode;
-          			}
-          			else{
-          				newNode = new Node(element,null);
-          				precursor = cursor;
-          				cursor = newNode;
-          				tail = newNode;
-          				precursor.setLink(newNode);
-          			}
+      				precursor = cursor;
+      				cursor = newNode;
+      				newNode.setLink(precursor.getLink());
+      				precursor.setLink(newNode);
       			}
+      }
+      else{
+    	  if(isEmpty()){
+      			startList(newNode);
+    	  }
       }
       manyNodes++;
    }
@@ -435,6 +420,9 @@ public class LinkedSeq<E> implements Cloneable
 	   		cursor = newNode;
 	   		tail = newNode;
 	   		precursor = null;
+   }
+   public boolean isEmpty(){
+	   return (manyNodes ==  0) ? true : false; 
    }
 }
            
