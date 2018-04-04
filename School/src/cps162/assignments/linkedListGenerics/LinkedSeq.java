@@ -214,7 +214,31 @@ public class LinkedSeq<E> implements Cloneable
    *   Indicates insufficient memory to increase the size of this sequence.
    **/
    public void addAll(LinkedSeq<E> addend) {
-      // student implements
+      Node newNode;
+      if(addend == null || addend.isEmpty()){
+    	  return;
+      }
+      else if(isEmpty()){
+    	  addend.start();
+    	  newNode = new Node(addend.getCurrent(),null);
+    	  startList(newNode);
+    	  addend.advance();
+    	  while(addend.isCurrent()){
+    		  	newNode = new Node(addend.getCurrent(),null);
+  	  			tail.setLink(newNode);
+  	  			tail = newNode;
+  	  			addend.advance();
+    	  }
+      }
+      else{
+    	  	addend.start();
+      		while(addend.isCurrent()){
+    	  		newNode = new Node(addend.getCurrent(),null);
+    	  		tail.setLink(newNode);
+    	  		tail = newNode;
+    	  		addend.advance();
+      		}
+      }
    }   
    
    
