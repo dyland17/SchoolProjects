@@ -213,7 +213,6 @@ public class LinkedSeq<E> implements Cloneable
    * @exception OutOfMemoryError
    *   Indicates insufficient memory to increase the size of this sequence.
    **/
-   // vvvvvvvvvvvvvv Still working on this vvvvvvvvvvvvvvvv
    public void addAll(LinkedSeq<E> addend) {
 	  Node newNode;
 	  Node iteratorNode;
@@ -222,22 +221,31 @@ public class LinkedSeq<E> implements Cloneable
     	  return;
       }//Current list is empty but addend has content.
       else if(isEmpty()){
-    	  head = new Node(addend.head.getData(),null);
-    	  cursor = null;
-    	  precursor = null;
-      }//Both lists have content in them.
-      iteratorNode = new Node(addend.head.getData(),addend.head.getLink());
-      do{
-    	  	newNode = new Node(iteratorNode.getData(),null);
-    		tail.setLink(newNode);
-    		tail = newNode;
-    		iteratorNode = iteratorNode.getLink();
-      }while(iteratorNode != null);
+    	  		iteratorNode = addend.head;
+    	  		head = new Node(iteratorNode.getData(),null);
+    	  		tail = head;
+    	  		iteratorNode = iteratorNode.getLink();
+    	  		while(iteratorNode != null){
+    	  			newNode = new Node(iteratorNode.getData(),null);
+          			tail.setLink(newNode);
+          			tail = newNode;
+          			iteratorNode = iteratorNode.getLink();
+    	  		}
+    	  		cursor = null;
+    	  		precursor = null;
+      }
+      else{
+    	  	//Both lists have content in them.
+    	  	iteratorNode = addend.head;
+      		do{
+      			newNode = new Node(iteratorNode.getData(),null);
+      			tail.setLink(newNode);
+      			tail = newNode;
+      			iteratorNode = iteratorNode.getLink();
+      		}while(iteratorNode != null);
+      	}
       manyNodes += addend.size();
-   }   
-   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   
-   
+   }
 /**
    * Move forward, so that the current element is now the next element in
    * this sequence.
