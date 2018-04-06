@@ -396,7 +396,34 @@ public class LinkedSeq<E> implements Cloneable
    *   removeCurrent may not be called. 
    **/
    public void removeCurrent( ) {
-      // student implements
+      if(!isCurrent()){
+    	  throw new IllegalStateException("Cursor is not current, so it can't be removed.");
+      }
+      
+      if((manyNodes - 1) > 0){
+    	  if(cursor == head){
+    		  head = head.getLink();
+    		  cursor = head;
+    		  precursor = null;
+    	  }
+    	  else if(cursor == tail){
+    		  tail = precursor;
+    		  tail.setLink(null);
+    		  cursor = null;
+    		  precursor = null;
+    	  }
+    	  else{
+    		  precursor.setLink(cursor.getLink());
+    		  cursor = cursor.getLink();
+    	  }
+      }
+      else{
+    	  head = null;
+    	  tail = null;
+    	  cursor = null;
+    	  precursor = null;
+      }
+      manyNodes--;
    }
                  
    
