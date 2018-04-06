@@ -213,23 +213,29 @@ public class LinkedSeq<E> implements Cloneable
    * @exception OutOfMemoryError
    *   Indicates insufficient memory to increase the size of this sequence.
    **/
+   // vvvvvvvvvvvvvv Still working on this vvvvvvvvvvvvvvvv
    public void addAll(LinkedSeq<E> addend) {
+	  Node newNode;
+	  Node iteratorNode;
       //If list addend is null or empty there is no point in going further.
       if(addend == null || addend.isEmpty()){
     	  return;
       }//Current list is empty but addend has content.
       else if(isEmpty()){
-    	  setEqualTo(addend);
+    	  head = new Node(addend.head.getData(),null);
     	  cursor = null;
     	  precursor = null;
       }//Both lists have content in them.
-      else{
-    	  tail.setLink(addend.head);
-    	  tail = addend.tail;
-    	  manyNodes += addend.size();
-      }
+      iteratorNode = new Node(addend.head.getData(),addend.head.getLink());
+      do{
+    	  	newNode = new Node(iteratorNode.getData(),null);
+    		tail.setLink(newNode);
+    		tail = newNode;
+    		iteratorNode = iteratorNode.getLink();
+      }while(iteratorNode != null);
+      manyNodes += addend.size();
    }   
-   
+   //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    
    
 /**
@@ -438,19 +444,6 @@ public class LinkedSeq<E> implements Cloneable
 	   		cursor = newNode;
 	   		tail = newNode;
 	   		precursor = null;
-   }
-   
-   public void setEqualTo(LinkedSeq valuesBeingCopiedList) {
-	   if(valuesBeingCopiedList == null){
-		   return;
-	   }
-	   else{
-		   head = valuesBeingCopiedList.head;
-		   precursor = valuesBeingCopiedList.precursor;
-		   cursor = valuesBeingCopiedList.cursor;
-		   tail = valuesBeingCopiedList.tail;
-		   manyNodes = valuesBeingCopiedList.manyNodes;
-	   }
    }
 
    public boolean isEmpty(){

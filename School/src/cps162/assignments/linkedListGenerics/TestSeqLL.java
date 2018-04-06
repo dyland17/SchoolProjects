@@ -635,21 +635,4 @@ public class TestSeqLL {
 		assertTrue("Invariant fails #s16", t.verifyInvariant());
 		assertTrue("Invariant fails #s17", u.verifyInvariant());
 	}
-	@Test
-	public void testSetEqualTo(){
-		LinkedSeq originalList = new LinkedSeq();
-		LinkedSeq anotherList = new LinkedSeq();
-		
-		anotherList.addBefore('t');
-		anotherList.addAfter('h');
-		anotherList.addAfter('i');
-		anotherList.addAfter('s');
-		
-		System.out.println(anotherList);
-		originalList.setEqualTo(anotherList);
-		
-		assertEquals(originalList.getCurrent(),anotherList.getCurrent());
-		assertEquals(originalList.size(),anotherList.size());
-		assertEquals(originalList.toString(),anotherList.toString());
-	}
 }
