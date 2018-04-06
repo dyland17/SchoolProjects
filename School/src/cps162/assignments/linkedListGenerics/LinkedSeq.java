@@ -219,9 +219,10 @@ public class LinkedSeq<E> implements Cloneable
       //If list addend is null or empty there is no point in going further.
       if(addend == null || addend.isEmpty()){
     	  return;
-      }//Current list is empty but addend has content.
-      else if(isEmpty()){
-    	  		iteratorNode = addend.head;
+      }
+      iteratorNode = addend.head;
+      //Current list is empty but addend has content.
+      if(isEmpty()){
     	  		head = new Node(iteratorNode.getData(),null);
     	  		tail = head;
     	  		iteratorNode = iteratorNode.getLink();
@@ -236,7 +237,6 @@ public class LinkedSeq<E> implements Cloneable
       }
       else{
     	  	//Both lists have content in them.
-    	  	iteratorNode = addend.head;
       		do{
       			newNode = new Node(iteratorNode.getData(),null);
       			tail.setLink(newNode);
