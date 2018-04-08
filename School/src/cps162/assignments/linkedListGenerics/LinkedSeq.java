@@ -344,9 +344,69 @@ public class LinkedSeq<E> implements Cloneable
    * @exception OutOfMemoryError
    *   Indicates insufficient memory for the new sequence.
    **/   
-   public static <E> LinkedSeq<E> concatenation(LinkedSeq<E> s1, LinkedSeq<E> s2) {
-      // student implements
-      return null;
+   public static <E> LinkedSeq<E> concatenation(LinkedSeq<E> s1, LinkedSeq<E> s2)throws NullPointerException, OutOfMemoryError {
+      LinkedSeq concatList = new LinkedSeq();
+      Node iteratorNode = null;
+      Node newNode = null;
+      if(s1.isEmpty() && s2.isEmpty()){
+    	  return concatList;
+      }
+      else if(s1.isEmpty()){
+    	  iteratorNode = s2.head;
+    	  newNode = new Node(iteratorNode.getData(),null);
+    	  concatList.head = newNode;
+    	  concatList.cursor = newNode;
+    	  iteratorNode = iteratorNode.getLink();
+    	  while(iteratorNode != null){
+    		  newNode = new Node(iteratorNode.getData(),null);
+    		  concatList.cursor.setLink(newNode);
+    		  concatList.precursor = concatList.cursor;
+    		  concatList.cursor = newNode;
+    		  iteratorNode = iteratorNode.getLink();
+    	  }
+      }
+      else if(s2.isEmpty()){
+    	  iteratorNode = s1.head;
+    	  newNode = new Node(iteratorNode.getData(),null);
+    	  concatList.head = newNode;
+    	  concatList.cursor = newNode;
+    	  iteratorNode = iteratorNode.getLink();
+    	  while(iteratorNode != null){
+    		  newNode = new Node(iteratorNode.getData(),null);
+    		  concatList.cursor.setLink(newNode);
+    		  concatList.precursor = concatList.cursor;
+    		  concatList.cursor = newNode;
+    		  iteratorNode = iteratorNode.getLink();
+    	  }
+      }
+      else{
+    	  iteratorNode = s1.head;
+    	  newNode = new Node(iteratorNode.getData(),null);
+    	  concatList.head = newNode;
+    	  concatList.cursor = newNode;
+    	  iteratorNode = iteratorNode.getLink();
+    	  while(iteratorNode != null){
+    		  newNode = new Node(iteratorNode.getData(),null);
+    		  concatList.cursor.setLink(newNode);
+    		  concatList.precursor = concatList.cursor;
+    		  concatList.cursor = newNode;
+    		  iteratorNode = iteratorNode.getLink();
+    	  }
+    	  //starting to add s2 to concatList
+    	  iteratorNode = s2.head;
+    	  while(iteratorNode != null){
+    		newNode = new Node(iteratorNode.getData(),null);
+    	  	concatList.cursor.setLink(newNode);
+    	  	concatList.precursor = concatList.cursor;
+    	  	concatList.cursor = newNode;
+    	  	iteratorNode = iteratorNode.getLink();
+    	  }
+      }
+      concatList.tail = newNode;
+      concatList.manyNodes = s1.size() + s2.size();
+      concatList.precursor = null;
+      concatList.cursor = null;
+      return concatList;
    }
 
 
