@@ -213,7 +213,7 @@ public class LinkedSeq<E> implements Cloneable
    * @exception OutOfMemoryError
    *   Indicates insufficient memory to increase the size of this sequence.
    **/
-   public void addAll(LinkedSeq<E> addend) {
+   public void addAll(LinkedSeq<E> addend) throws NullPointerException, OutOfMemoryError{
 	  Node newNode;
 	  Node iteratorNode;
       //If list addend is null or empty there is no point in going further.
@@ -533,14 +533,26 @@ public class LinkedSeq<E> implements Cloneable
       }
       return answer;
    }
- 
+   /**
+    * 
+    * @param newNode this node is used to setup an empty list.
+    * <h2>Description: </h2>
+    * <p>This method is called to setup an empty list. 
+    * 			It sets all pointers where they need to point initially. </p>
+    */
    private void startList(Node newNode){
 	   		head = newNode;
 	   		cursor = newNode;
 	   		tail = newNode;
 	   		precursor = null;
    }
-
+   /**
+    * 
+    * @return boolean
+    * <h2>Description: </h2>
+    * 		<p>Tests to see if manyNodes if more than 0 then returns true. 
+    * 			If manyNodes is 0 it returns false.</p>
+    */
    public boolean isEmpty(){
 	   return (manyNodes ==  0) ? true : false; 
    }
