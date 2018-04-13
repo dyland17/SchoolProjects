@@ -1,3 +1,4 @@
+package cps162.assignments.postFixStacks;
 /**
  * A Token class in which tokens know whether they are 
  * operators or numbers and can return appropriate values.

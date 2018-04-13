@@ -1,3 +1,4 @@
+package cps162.assignments.postFixStacks;
 /* Simple applet that has a single input text field
  * and a single output text field. It also has a label.
  * When the user presses return, the action is done.
