@@ -1,20 +1,21 @@
 package cps162.assignments.postFixStacks;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 public class PostfixEvaluator {
 	
 	public static String evaluate(String item) {
-			if(basicInputCheck(item) == false){
-				return "not all input used";
-			}
+		
 			Stack<Double> numbers = new Stack<Double>();
 			TokenScanner scanner = new TokenScanner(item);
 			try{
 				if(item == null || (item.trim()).isEmpty()){
 					throw new NoSuchElementException();
-				}
+				}	
+				
 				do{
 					Token currentToken =  scanner.nextToken();
 					if(currentToken.isNumber()){
@@ -27,6 +28,9 @@ public class PostfixEvaluator {
 						else{
 							completeOperation(numbers, currentToken);
 						}
+					}
+					else if(currentToken.isLeftParen() || currentToken.isRightParen()){
+						return "has no meaning here";
 					}
 					else{
 						throw new NoSuchElementException();
@@ -42,7 +46,9 @@ public class PostfixEvaluator {
 			catch(ArithmeticException e){
 				return "Infinity";
 			}
-			
+			if(basicInputCheck(item) == false){
+					return "not all input used";
+				}
 			if(numbers.size() > 1){
 				return "values remain on stack";
 			}
@@ -78,10 +84,6 @@ public class PostfixEvaluator {
 	private static boolean basicInputCheck(String item){
 		int i = 0;
 		int periodCount = 0;
-		String specialCharacters = "!@#$%^&()\"{}_[]|\\?/<>,";
-		if(specialCharacters.contains(item)){
-			return false;
-		}
 		while(i < item.length()){
 			Character ch = item.charAt(i);
 			
@@ -91,7 +93,13 @@ public class PostfixEvaluator {
 			else if(ch.equals('.')){
 				periodCount++;
 			}
-			else if(ch.equals(" ")){
+			else if(ch.equals('?')){
+				return false;
+			}
+			else if(ch.equals('#')){
+				return false;
+			}
+			else if(Character.isWhitespace(ch)){
 				periodCount = 0;
 			}
 			if(periodCount > 1){
@@ -101,4 +109,5 @@ public class PostfixEvaluator {
 		}
 		return true;
 	}
+	
 }
