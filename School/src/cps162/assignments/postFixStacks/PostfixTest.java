@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 public class PostfixTest {
 
-	@Rule
-	public Timeout globalTimeout = new Timeout(100, TimeUnit.MILLISECONDS);
+//	@Rule
+//	public Timeout globalTimeout = new Timeout(100, TimeUnit.MILLISECONDS);
 
 	@Test
 	public void a_simple( ) {
@@ -54,7 +54,7 @@ public class PostfixTest {
 	@Test
 	public void c_notEnough( ) {
 		String answer;
-		final String underflowMessage = "nderflow";
+		final String underflowMessage = "underflow";
 
 		try {
 			answer = PostfixEvaluator.evaluate("4 -");
