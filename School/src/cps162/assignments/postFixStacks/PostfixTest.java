@@ -54,7 +54,7 @@ public class PostfixTest {
 	@Test
 	public void c_notEnough( ) {
 		String answer;
-		final String underflowMessage = "underflow";
+		final String underflowMessage = "nderflow";
 
 		try {
 			answer = PostfixEvaluator.evaluate("4 -");

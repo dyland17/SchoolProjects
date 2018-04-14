@@ -30,7 +30,7 @@ public class PostfixEvaluator {
 						}
 					}
 					else if(currentToken.isLeftParen() || currentToken.isRightParen()){
-						return "has no meaning here";
+						throw new ParanException();
 					}
 					else{
 						throw new NoSuchElementException();
@@ -41,19 +41,31 @@ public class PostfixEvaluator {
 				return "No input";
 			}
 			catch(EmptyStackException e){
-				return "underflow";
+				return "nderflow";
 			}
 			catch(ArithmeticException e){
 				return "Infinity";
+			} 
+			catch (ParanException e) {
+				return "has no meaning here";
 			}
-			if(basicInputCheck(item) == false){
-					return "not all input used";
+			
+			try{
+				if(basicInputCheck(item) == false){
+					throw new NotAllInputUsedException();
 				}
-			if(numbers.size() > 1){
-				return "values remain on stack";
+				if(numbers.size() > 1){
+					throw new ValuesLeftOnStackException();
+				}
+				else{
+					return String.valueOf(numbers.pop());
+				}
 			}
-			else{
-				return String.valueOf(numbers.pop());
+			catch(NotAllInputUsedException e){
+				return "not all input used";
+			}
+			catch(ValuesLeftOnStackException e){
+				return "values remain on stack";
 			}
 	}
 	
@@ -109,5 +121,8 @@ public class PostfixEvaluator {
 		}
 		return true;
 	}
+	static class ParanException extends Exception{}
+	static class NotAllInputUsedException extends Exception{}
+	static class ValuesLeftOnStackException extends Exception{}
 	
 }
