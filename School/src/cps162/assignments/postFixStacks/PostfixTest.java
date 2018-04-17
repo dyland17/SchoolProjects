@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 public class PostfixTest {
 
-//	@Rule
-//	public Timeout globalTimeout = new Timeout(100, TimeUnit.MILLISECONDS);
+	@Rule
+public Timeout globalTimeout = new Timeout(100, TimeUnit.MILLISECONDS);
 
 	@Test
 	public void a_simple( ) {
