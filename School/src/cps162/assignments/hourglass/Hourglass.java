@@ -1,15 +1,27 @@
 package cps162.assignments.hourglass;
 
+import java.util.Scanner;
+
 public class Hourglass {
 
 	public static void main(String []args){
-		Hourglass.makeHourGlass(4,4);
-	}
-	
-	public static void makeHourGlass(int size, int spaces){
+		int size;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("How big of an hourglass?");
+		size = scan.nextInt();
 		if(size < 1){
 			System.out.println("Input is less than 1");
+			return;
 		}
+		Hourglass.makeHourGlass(size);
+	}
+	
+	public static void makeHourGlass(int size){
+		Hourglass.makeHourGlass(size, 0);
+	}
+	
+	private static void makeHourGlass(int size, int spaces){
+		
 		System.out.println();
 		Hourglass.printSpaces(spaces);
 		if(size == 1){	
@@ -17,7 +29,6 @@ public class Hourglass {
 			System.out.println();
 		}
 		else{
-			
 			printCount(size, "*");
 			makeHourGlass((size-1), (spaces+1));
 		}
@@ -35,7 +46,10 @@ public class Hourglass {
 		}
 	}
 	public static void printSpaces(int count){
-		if(count <= 1){
+		if(count == 0){
+			return;
+		}
+		if(count == 1){
 			System.out.print(" ");	
 		}
 		else{
