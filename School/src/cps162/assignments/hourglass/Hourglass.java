@@ -2,7 +2,8 @@ package cps162.assignments.hourglass;
 
 import java.util.Scanner;
 /**
- * <h1>Hourglass: </h1> <p>has methods to print an hourglass d</p> 
+ * <h1>Hourglass: </h1> <p>Has methods to print an hourglass depending on the choice of the user.
+ * 													The user may choose 1 or anything higher, otherwise it prints "Input is less than 1".</p> 
  * 
  * @author Dylan Dewald
  */
