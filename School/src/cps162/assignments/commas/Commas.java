@@ -3,7 +3,7 @@ package cps162.assignments.commas;
 public class Commas {
 		
 		public static void main(String []args){
-			int number = 50125;
+			int number = 185700125;
 			String output = formatLongWithCommas(number);
 			System.out.println(output);
 		}
@@ -11,28 +11,21 @@ public class Commas {
 	
 		public static String formatLongWithCommas(long number){
 			String formattedNumber = null;
-			long shortenedNumber;
-			long modNumber = number % 1000;
 			// Returns anything that is under a thousand.
 			if(number < 1000){
 				formattedNumber = String.valueOf(number); 
 				return formattedNumber;
 			}
 			else{
-					if(modNumber == 0){
-					shortenedNumber = number /1000;
-					formattedNumber = shortenedNumber + "," + "000";
+				long shortenedNumber = number / 1000;
+				long modNumber = number % 1000;
+				if(modNumber == 0){
+					formattedNumber = formatLongWithCommas(shortenedNumber) + ",000";
 				}
 				else{
-					long differenceNumber = number - modNumber;
-					shortenedNumber = differenceNumber /1000;
-					formattedNumber = shortenedNumber + "," + modNumber;
+					formattedNumber = formatLongWithCommas(shortenedNumber) + "," + modNumber;
 				}
 			}
-				
-		
-			
-			
 			return formattedNumber;
 			//formatLongWithCommas(dividedNumber);
 		}
