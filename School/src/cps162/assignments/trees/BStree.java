@@ -1,4 +1,5 @@
 package cps162.assignments.trees;
+
 /**
  * A Binary search tree class.
  * 
@@ -127,4 +128,25 @@ public class BStree implements BTnode.Visitor<Character> {
 		System.out.print(node.getData());
 	}
 
+	public void oldCodeStuff(){
+		/*public void insert(int data){
+			//Do not have to check head
+			if(data <= this.data){
+				if(leftNode != null){
+					leftNode.insert(data);
+				}
+				else{
+					leftNode = new Node(data);
+				}
+			}
+			else{
+				if(rightNode != null){
+					rightNode.insert(data);
+				}
+				else{
+					rightNode = new Node(data);
+				}
+			}
+		}*/
+	}
 }
