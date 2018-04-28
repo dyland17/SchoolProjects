@@ -45,7 +45,35 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            item to be inserted in tree
 	 */
 	private void insertWithNode(BTnode<Character> node, char item) {
-		// student writes this code
+		//Tree is totally empty.
+		if(node.getData().equals('\0')){
+			if(node.getRight() == null){
+				node.setRight(new BTnode<Character>(item));
+				return;
+			}
+			else{
+				insertWithNode(node.getRight(), item);
+			}
+		}//Tree has a head node
+		else{
+			//What side of the tree to go down
+			if(item <= node.getData()){
+				if(node.getLeft() == null){
+					node.setLeft(new BTnode<Character>(item));
+				}
+				else{
+					insertWithNode(node.getLeft(),item);
+				}
+			}
+			else{
+				if(node.getRight() == null){
+					node.setRight(new BTnode<Character>(item));
+				}
+				else{
+					insertWithNode(node.getRight(),item);
+				}
+			}
+		}
 	}
 
 	/**
@@ -127,26 +155,18 @@ public class BStree implements BTnode.Visitor<Character> {
 	public void visit(BTnode<Character> node) {
 		System.out.print(node.getData());
 	}
-
-	public void oldCodeStuff(){
-		/*public void insert(int data){
-			//Do not have to check head
-			if(data <= this.data){
-				if(leftNode != null){
-					leftNode.insert(data);
-				}
-				else{
-					leftNode = new Node(data);
-				}
-			}
-			else{
-				if(rightNode != null){
-					rightNode.insert(data);
-				}
-				else{
-					rightNode = new Node(data);
-				}
-			}
-		}*/
+	public static void main(String []args){
+		//Testing an example.
+		BStree tree = new BStree();
+		tree.insert('m');
+		tree.insert('a');
+		tree.insert('r');
+		tree.insert('a');
+		tree.insert('u');
+		tree.insert('d');
+		tree.insert('e');
+		tree.insert('r');
+		tree.printSideways();
+		
 	}
 }
