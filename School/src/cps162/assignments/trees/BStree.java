@@ -99,7 +99,19 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            item to be removed if it exists in tree
 	 */
 	private void removeFromNode(BTnode<Character> parent, BTnode<Character> node, char target) {
-		// student writes this code
+		if(target < node.getData()){
+			parent = node;
+			node = node.getLeft();
+			removeFromNode(parent, node, target);
+		}
+		else if(target > node.getData()){
+			parent = node;
+			node = node.getRight();
+			removeFromNode(parent, node, target);
+		}
+		else{
+			System.out.println(node.getData());
+		}
 	}
 
 	/**
@@ -114,7 +126,15 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            node that will be attached in oldChild's place
 	 */
 	private void replaceChild(BTnode<Character> parent, BTnode<Character> oldChild, BTnode<Character> newChild) {
-		// student writes this code
+		if(parent == null){
+			return;
+		}
+		if(parent.getLeft() == oldChild){
+			parent.setLeft(newChild);
+		}
+		else if(parent.getRight() == oldChild){
+			parent.setRight(newChild);
+		}
 	}
 
 	/**
@@ -128,8 +148,19 @@ public class BStree implements BTnode.Visitor<Character> {
 	 * @return the data from the rightmost node which has been removed
 	 */
 	private char dataFromDeletedRightmost(BTnode<Character> parent, BTnode<Character> node) {
-		// student writes this code
-		return 'X';
+		if(parent == null && node == null){
+			return ' ';
+		}
+		if(node.getRight() == null){
+			char returnChar = node.getData();
+			replaceChild(parent,node,node.getLeft());
+			return returnChar;
+		}
+		else{
+			parent = node;
+			node = node.getRight();
+			return dataFromDeletedRightmost(parent, node);
+		}
 	}
 
 	/**
@@ -155,18 +186,18 @@ public class BStree implements BTnode.Visitor<Character> {
 	public void visit(BTnode<Character> node) {
 		System.out.print(node.getData());
 	}
+	
+	public BTnode<Character> getStart(){
+		return bst.getRight();
+	}
 	public static void main(String []args){
 		//Testing an example.
 		BStree tree = new BStree();
-		tree.insert('m');
-		tree.insert('a');
-		tree.insert('r');
-		tree.insert('a');
-		tree.insert('u');
-		tree.insert('d');
-		tree.insert('e');
-		tree.insert('r');
-		tree.printSideways();
-		
+		tree.insert('c');
+		tree.insert('f');
+		tree.insert('o');
+		tree.insert('h');
+		tree.insert('g');
+		tree.insert('i');
 	}
 }
