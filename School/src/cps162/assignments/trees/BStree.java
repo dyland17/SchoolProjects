@@ -8,7 +8,7 @@ package cps162.assignments.trees;
  * However, we must skip it when starting any printing.
  * 
  *  @author Beth Katz, April 2018 based on code from April 2007
- *  @author student name 
+ *  @author Dylan Dewald
  */
 
 public class BStree implements BTnode.Visitor<Character> {
@@ -99,6 +99,9 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            item to be removed if it exists in tree
 	 */
 	private void removeFromNode(BTnode<Character> parent, BTnode<Character> node, char target) {
+		if(node == null){
+			return;
+		}
 		if(target < node.getData()){
 			parent = node;
 			node = node.getLeft();
@@ -110,7 +113,16 @@ public class BStree implements BTnode.Visitor<Character> {
 			removeFromNode(parent, node, target);
 		}
 		else{
-			System.out.println(node.getData());
+			if(node.getLeft() == null){
+				replaceChild(parent,node,node.getRight());
+			}
+			else{
+				char dataChar = dataFromDeletedRightmost(node, node.getLeft());
+				BTnode<Character> newNode = new BTnode<Character>(dataChar);
+				newNode.setLeft(node.getLeft());
+				newNode.setRight(node.getRight());
+				replaceChild(parent,node,newNode);
+			}
 		}
 	}
 
@@ -193,11 +205,6 @@ public class BStree implements BTnode.Visitor<Character> {
 	public static void main(String []args){
 		//Testing an example.
 		BStree tree = new BStree();
-		tree.insert('c');
-		tree.insert('f');
-		tree.insert('o');
-		tree.insert('h');
-		tree.insert('g');
-		tree.insert('i');
+		tree.replaceChild(null, tree.getStart(), new BTnode<Character>('h'));
 	}
 }
