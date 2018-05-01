@@ -202,9 +202,4 @@ public class BStree implements BTnode.Visitor<Character> {
 	public BTnode<Character> getStart(){
 		return bst.getRight();
 	}
-	public static void main(String []args){
-		//Testing an example.
-		BStree tree = new BStree();
-		tree.replaceChild(null, tree.getStart(), new BTnode<Character>('h'));
-	}
 }
