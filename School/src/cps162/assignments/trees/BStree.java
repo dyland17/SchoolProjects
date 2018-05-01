@@ -198,7 +198,7 @@ public class BStree implements BTnode.Visitor<Character> {
 	public void visit(BTnode<Character> node) {
 		System.out.print(node.getData());
 	}
-	
+	//Gives the node that functions as the root/head of the binary tree.
 	public BTnode<Character> getStart(){
 		return bst.getRight();
 	}
