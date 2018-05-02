@@ -45,33 +45,22 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            item to be inserted in tree
 	 */
 	private void insertWithNode(BTnode<Character> node, char item) {
-		//Tree is totally empty.
-		if(node.getData().equals('\0')){
+		//Checking what way to move down the tree.
+			//Going right.
+		if(item > node.getData()){
 			if(node.getRight() == null){
 				node.setRight(new BTnode<Character>(item));
-				return;
 			}
 			else{
 				insertWithNode(node.getRight(), item);
 			}
-		}//Tree has a head node
+		}//Going left
 		else{
-			//What side of the tree to go down
-			if(item <= node.getData()){
-				if(node.getLeft() == null){
-					node.setLeft(new BTnode<Character>(item));
-				}
-				else{
-					insertWithNode(node.getLeft(),item);
-				}
+			if(node.getLeft() == null){
+				node.setLeft(new BTnode<Character>(item));
 			}
 			else{
-				if(node.getRight() == null){
-					node.setRight(new BTnode<Character>(item));
-				}
-				else{
-					insertWithNode(node.getRight(),item);
-				}
+				insertWithNode(node.getLeft(), item);
 			}
 		}
 	}
@@ -103,14 +92,10 @@ public class BStree implements BTnode.Visitor<Character> {
 			return;
 		}
 		if(target < node.getData()){
-			parent = node;
-			node = node.getLeft();
-			removeFromNode(parent, node, target);
+			removeFromNode(node, node.getLeft(), target);
 		}
 		else if(target > node.getData()){
-			parent = node;
-			node = node.getRight();
-			removeFromNode(parent, node, target);
+			removeFromNode(node, node.getRight(), target);
 		}
 		else{
 			if(node.getLeft() == null){
@@ -138,9 +123,6 @@ public class BStree implements BTnode.Visitor<Character> {
 	 *            node that will be attached in oldChild's place
 	 */
 	private void replaceChild(BTnode<Character> parent, BTnode<Character> oldChild, BTnode<Character> newChild) {
-		if(parent == null){
-			return;
-		}
 		if(parent.getLeft() == oldChild){
 			parent.setLeft(newChild);
 		}
@@ -160,18 +142,13 @@ public class BStree implements BTnode.Visitor<Character> {
 	 * @return the data from the rightmost node which has been removed
 	 */
 	private char dataFromDeletedRightmost(BTnode<Character> parent, BTnode<Character> node) {
-		if(parent == null && node == null){
-			return ' ';
-		}
 		if(node.getRight() == null){
 			char returnChar = node.getData();
 			replaceChild(parent,node,node.getLeft());
 			return returnChar;
 		}
 		else{
-			parent = node;
-			node = node.getRight();
-			return dataFromDeletedRightmost(parent, node);
+			return dataFromDeletedRightmost(node, node.getRight());
 		}
 	}
 
@@ -198,7 +175,7 @@ public class BStree implements BTnode.Visitor<Character> {
 	public void visit(BTnode<Character> node) {
 		System.out.print(node.getData());
 	}
-	//Gives the node that functions as the root/head of the binary tree.
+	//For testing purposes in BStree Junit Tests
 	public BTnode<Character> getStart(){
 		return bst.getRight();
 	}
