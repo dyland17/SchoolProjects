@@ -1,13 +1,21 @@
 package cps162.assignments.pattern;
 
+import java.util.Scanner;
+
 public class Pattern {
 	
 	
 	
 	public static void main(String []args){
-		String pattern = getPattern(7);
-		pattern = makePrettyPattern(pattern, 1);
-		System.out.println(pattern);
+		int pattern;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter positive pattern integer?");
+		pattern = scan.nextInt();
+		if(pattern < 1){
+			System.out.println("Input is less than 1");
+			return;
+		}
+		printPattern(pattern);
 	}
 	
 	//vvvvvvvvv Not implemented yet vvvvvvvvvvvvv
