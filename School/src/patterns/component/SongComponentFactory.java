@@ -3,7 +3,7 @@ package patterns.component;
 public class SongComponentFactory {
 	public static SongComponent createThreeDaysGrace() {
 		//Entire group and lead artist.
-		GroupName TDG = new GroupName("Three Days Grace", "Adam Gontier");
+		SongComponent TDG = new GroupName("Three Days Grace", "Adam Gontier");
 		//Album one
 		SongComponent lifeStartsNow = new GroupName("Life Starts Now", "Three Days Grace");
 		lifeStartsNow.add(new Song("Break",3.12,1));
