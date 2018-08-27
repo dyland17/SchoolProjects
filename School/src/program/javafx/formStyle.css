@@ -1,0 +1,13 @@
+.root{
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+#title-text{
+	-fx-fill: #ffffff;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.label{
+	-fx-text-fill: #ffffe6;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
